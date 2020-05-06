@@ -18,12 +18,12 @@ func (b byDescription) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 type byStartDate []Deal
 
 func (b byStartDate) Len() int           { return len(b) }
-func (b byStartDate) Less(i, j int) bool { return b[i].StartDate < b[j].StartDate }
+func (b byStartDate) Less(i, j int) bool { return b[i].StartDate.Sub(b[j].StartDate) < 0 }
 func (b byStartDate) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
 
 // Sort by description
 type byEndDate []Deal
 
 func (b byEndDate) Len() int           { return len(b) }
-func (b byEndDate) Less(i, j int) bool { return b[i].EndDate < b[j].EndDate }
+func (b byEndDate) Less(i, j int) bool { return b[i].EndDate.Sub(b[j].EndDate) < 0 }
 func (b byEndDate) Swap(i, j int)      { b[i], b[j] = b[j], b[i] }
