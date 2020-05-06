@@ -1,6 +1,7 @@
 package todolist
 
 import (
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -70,4 +71,39 @@ func setValueByParam(deal *Deal, params map[string]string) {
 			continue
 		}
 	}
+}
+
+func sortByParam(deals []*Deal, sortBy, sortType string) (sortedDeals []Deal) {
+	for _, d := range deals {
+		sortedDeals = append(sortedDeals, *d)
+	}
+	switch sortBy {
+	case "name":
+		if sortType == "up" {
+			sort.Sort(byName(sortedDeals))
+		} else {
+			sort.Reverse(byName(sortedDeals))
+		}
+	case "description":
+		if sortType == "up" {
+			sort.Sort(byDescription(sortedDeals))
+		} else {
+			sort.Reverse(byDescription(sortedDeals))
+		}
+	case "start_date":
+		if sortType == "up" {
+			sort.Sort(byStartDate(sortedDeals))
+		} else {
+			sort.Reverse(byStartDate(sortedDeals))
+		}
+	case "end_date":
+		if sortType == "up" {
+			sort.Sort(byEndDate(sortedDeals))
+		} else {
+			sort.Reverse(byEndDate(sortedDeals))
+		}
+	default:
+		sort.Sort(byName(sortedDeals))
+	}
+	return
 }

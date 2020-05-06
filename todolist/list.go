@@ -55,17 +55,16 @@ func (t ToDoList) Find(id string) *Deal {
 }
 
 // Filter - filter deals by parameters
-func (t ToDoList) Filter(params map[string]string) []*Deal {
-	var deals []*Deal
+func (t ToDoList) Filter(params map[string]string) (deals []Deal) {
 	for _, d := range t.Deals {
 		if checkValueByParam(d, params) {
-			deals = append(deals, d)
+			deals = append(deals, *d)
 		}
 	}
-	return deals
+	return
 }
 
 // Sort - sort deals list
-func (t *ToDoList) Sort() {
-
+func (t *ToDoList) Sort(sortBy, sortType string) []Deal {
+	return sortByParam(t.Deals, sortBy, sortType)
 }
